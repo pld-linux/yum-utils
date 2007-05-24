@@ -1,0 +1,87 @@
+diff -ur -x '*~' yum-utils-1.1.4-orig/package-cleanup.py yum-utils-1.1.4/package-cleanup.py
+--- yum-utils-1.1.4-orig/package-cleanup.py	2007-05-23 21:53:38.879606097 +0200
++++ yum-utils-1.1.4/package-cleanup.py	2007-05-23 21:55:33.458398024 +0200
+@@ -349,7 +349,7 @@
+     parser.add_option("--keepdevel",default=False,dest="keepdevel",action="store_true",
+       help="Do not remove kernel-devel packages when removing kernels")
+     parser.add_option("-c", dest="conffile", action="store",
+-                default='/etc/yum.conf', help="config file location")
++                default='/etc/yum/yum.conf', help="config file location")
+ 
+     (opts, args) = parser.parse_args()
+     if not exactlyOne((opts.problems,opts.leaves,opts.kernels,opts.orphans, opts.dupes, opts.cleandupes)): 
+diff -ur -x '*~' yum-utils-1.1.4-orig/repoclosure.py yum-utils-1.1.4/repoclosure.py
+--- yum-utils-1.1.4-orig/repoclosure.py	2007-05-23 21:53:38.359641833 +0200
++++ yum-utils-1.1.4/repoclosure.py	2007-05-23 21:54:44.535093745 +0200
+@@ -35,8 +35,8 @@
+ def parseArgs():
+     usage = "usage: %s [-c <config file>] [-a <arch>] [-r <repoid>] [-r <repoid2>]" % sys.argv[0]
+     parser = OptionParser(usage=usage)
+-    parser.add_option("-c", "--config", default='/etc/yum.conf',
+-        help='config file to use (defaults to /etc/yum.conf)')
++    parser.add_option("-c", "--config", default='/etc/yum/yum.conf',
++        help='config file to use (defaults to /etc/yum/yum.conf)')
+     parser.add_option("-a", "--arch", default=[], action='append',
+         help='check packages of the given archs, can be specified multiple ' +
+              'times (default: current arch)')
+@@ -54,7 +54,7 @@
+     return (opts, args)
+ 
+ class RepoClosure(yum.YumBase):
+-    def __init__(self, arch = [], config = "/etc/yum.conf", builddeps = False):
++    def __init__(self, arch = [], config = "/etc/yum/yum.conf", builddeps = False):
+         yum.YumBase.__init__(self)
+         self.logger = logging.getLogger("yum.verbose.repoclosure")
+         self.arch = arch
+diff -ur -x '*~' yum-utils-1.1.4-orig/repo-graph.py yum-utils-1.1.4/repo-graph.py
+--- yum-utils-1.1.4-orig/repo-graph.py	2007-05-23 21:53:38.882939201 +0200
++++ yum-utils-1.1.4/repo-graph.py	2007-05-23 21:56:15.112201920 +0200
+@@ -98,7 +98,7 @@
+     parser.add_option("--repoid", default=[], action="append",
+                       help="specify repositories to use")
+     parser.add_option("-c", dest="conffile", action="store",
+-                      default="/etc/yum.conf", help="config file location")
++                      default="/etc/yum/yum.conf", help="config file location")
+     #parser.add_option("--header", dest="header", action="store",
+     #                  help="specify alternative .dot header")
+     (opts, args) = parser.parse_args()
+diff -ur -x '*~' yum-utils-1.1.4-orig/repoquery.py yum-utils-1.1.4/repoquery.py
+--- yum-utils-1.1.4-orig/repoquery.py	2007-05-23 21:53:38.876272993 +0200
++++ yum-utils-1.1.4/repoquery.py	2007-05-23 21:55:20.102649267 +0200
+@@ -565,7 +565,7 @@
+     parser.add_option("--querytags", default=0, action="store_true",
+                       help="list available tags in queryformat queries")
+     parser.add_option("-c", dest="conffile", action="store",
+-                      default='/etc/yum.conf', help="config file location")
++                      default='/etc/yum/yum.conf', help="config file location")
+ 
+     (opts, regexs) = parser.parse_args()
+     if opts.version:
+diff -ur -x '*~' yum-utils-1.1.4-orig/reposync.py yum-utils-1.1.4/reposync.py
+--- yum-utils-1.1.4-orig/reposync.py	2007-05-23 21:53:38.879606097 +0200
++++ yum-utils-1.1.4/reposync.py	2007-05-23 21:55:50.057257222 +0200
+@@ -73,8 +73,8 @@
+     """ % sys.argv[0]
+ 
+     parser = OptionParser(usage=usage)
+-    parser.add_option("-c", "--config", default='/etc/yum.conf',
+-        help='config file to use (defaults to /etc/yum.conf)')
++    parser.add_option("-c", "--config", default='/etc/yum.yum.conf',
++        help='config file to use (defaults to /etc/yum/yum.conf)')
+     parser.add_option("-a", "--arch", default=None,
+         help='act as if running the specified arch (default: current arch, note: does not override $releasever)')
+     parser.add_option("-r", "--repoid", default=[], action='append',
+diff -ur -x '*~' yum-utils-1.1.4-orig/repotrack.py yum-utils-1.1.4/repotrack.py
+--- yum-utils-1.1.4-orig/repotrack.py	2007-05-23 21:53:38.876272993 +0200
++++ yum-utils-1.1.4/repotrack.py	2007-05-23 21:56:04.789578037 +0200
+@@ -84,8 +84,8 @@
+ def parseArgs():
+     usage = "usage: %s [options] package1 [package2] [package..]" % sys.argv[0]
+     parser = OptionParser(usage=usage)
+-    parser.add_option("-c", "--config", default='/etc/yum.conf',
+-        help='config file to use (defaults to /etc/yum.conf)')
++    parser.add_option("-c", "--config", default='/etc/yum/yum.conf',
++        help='config file to use (defaults to /etc/yum/yum.conf)')
+ #    parser.add_option("-a", "--arch", default=None,
+ #        help='check as if running the specified arch (default: current arch)')
+     parser.add_option("-r", "--repoid", default=[], action='append',
