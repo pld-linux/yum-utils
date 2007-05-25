@@ -1,4 +1,5 @@
 Summary:	A collection of utilities related to yum
+Summary(pl.UTF-8):	Zestaw narzędzi związanych z yumem
 Name:		yum-utils
 Version:	1.1.4
 Release:	1
@@ -11,19 +12,18 @@ URL:		http://linux.duke.edu/projects/yum/
 BuildRequires:	gettext-devel
 BuildRequires:	rpm-pythonprov
 BuildRequires:	rpmbuild(macros) >= 1.228
-Requires:	python >= 2.5
+Requires:	python >= 1:2.5
 Requires:	yum
 BuildArch:	noarch
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
 
 %description
-Yum-utils is a collection of utilities, plugins and examples related to
-the yum package manager.
+Yum-utils is a collection of utilities, plugins and examples related
+to the yum package manager.
 
 %description -l pl.UTF-8
-Yum to narzędzie sprawdzające i automatycznie ściągające i instalujące
-uaktualnione pakiety RPM. Zależności są ściągane automatycznie po
-zapytaniu użytkownika w razie potrzeby.
+yum-utils to zestaw narzędzi, wtyczek i przykładów związanych z
+zarządcą pakietów yum.
 
 %prep
 %setup -q
@@ -41,12 +41,12 @@ rm -rf $RPM_BUILD_ROOT
 
 # Plugins to install
 plugins="changelog fastestmirror fedorakmod protectbase versionlock tsflags kernel-module downloadonly allowdowngrade skip-broken priorities refresh-updatesd merge-conf security"
-install -d $RPM_BUILD_ROOT/{%{_sysconfdir}/yum/pluginconf.d,%{_libdir}/yum-plugins}
+install -d $RPM_BUILD_ROOT{%{_sysconfdir}/yum/pluginconf.d,%{_libdir}/yum-plugins}
 
 cd plugins
 for plug in $plugins; do
-    install $plug/*.conf $RPM_BUILD_ROOT/%{_sysconfdir}/yum/pluginconf.d/
-    install $plug/*.py $RPM_BUILD_ROOT/usr/lib/yum-plugins/
+    install $plug/*.conf $RPM_BUILD_ROOT/%{_sysconfdir}/yum/pluginconf.d
+    install $plug/*.py $RPM_BUILD_ROOT/usr/lib/yum-plugins
 done
 
 %py_postclean
