@@ -2,11 +2,13 @@ Summary:	A collection of utilities related to yum
 Summary(pl.UTF-8):	Zestaw narzędzi związanych z yumem
 Name:		yum-utils
 Version:	1.1.13
-Release:	0.1
+Release:	0.2
 License:	GPL
 Group:		Applications/System
 Source0:	http://linux.duke.edu/yum/download/yum-utils/%{name}-%{version}.tar.gz
 # Source0-md5:	29eedb17fd40b158c129c84dc865d889
+Source1:	yum-plugin-pld-kernel.py
+Source2:	yum-plugin-pld-kernel.conf
 URL:		http://linux.duke.edu/yum/download/yum-utils/
 BuildRequires:	gettext-devel
 BuildRequires:	rpm-pythonprov
@@ -120,6 +122,14 @@ Requires:	yum >= 3.0
 %description -n yum-skip-broken
 This plugin adds a --skip-broken to yum to make it possible to check
 packages for dependency problems and skip the one with problems.
+
+%package -n yum-pld-kernel
+Summary:	Yum plugin to handle pld kernel installs
+Group:		Base
+Requires:	yum >= 3.0
+
+%description -n yum-pld-kernel
+This plugin handle installation of pld kernels
 
 %package -n yum-priorities
 Summary:	plugin to give priorities to packages from different repos
@@ -274,8 +284,11 @@ install -d $RPM_BUILD_ROOT%{_sysconfdir}/yum/pluginconf.d/ $RPM_BUILD_ROOT%{_dat
 cd plugins
 for plug in $plugins; do
 	install -m 644 $plug/*.conf $RPM_BUILD_ROOT%{_sysconfdir}/yum/pluginconf.d
-install $plug/*.py $RPM_BUILD_ROOT%{_datadir}/yum-plugins
+	install $plug/*.py $RPM_BUILD_ROOT%{_datadir}/yum-plugins
 done
+cp -a %{SOURCE1} $RPM_BUILD_ROOT%{_datadir}/yum-plugins/pld-kernel.py
+cp -a %{SOURCE2} $RPM_BUILD_ROOT%{_sysconfdir}/yum/pluginconf.d/pld-kernel.conf
+
 install aliases/aliases $RPM_BUILD_ROOT%{_sysconfdir}/yum/aliases.conf
 install versionlock/versionlock.list $RPM_BUILD_ROOT%{_sysconfdir}/yum/pluginconf.d
 
@@ -373,6 +386,11 @@ fi
 %defattr(644,root,root,755)
 %config(noreplace) %verify(not md5 mtime size) %{_sysconfdir}/yum/pluginconf.d/skip-broken.conf
 %{_datadir}/yum-plugins/skip-broken.*
+
+%files -n yum-pld-kernel
+%defattr(644,root,root,755)
+%config(noreplace) %verify(not md5 mtime size) %{_sysconfdir}/yum/pluginconf.d/pld-kernel.conf
+%{_datadir}/yum-plugins/pld-kernel.*
 
 %files -n yum-priorities
 %defattr(644,root,root,755)
