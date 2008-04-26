@@ -30,7 +30,7 @@ requires_api_version = '2.1'
 plugin_type = (TYPE_CORE,)
 
 knames = ['kernel', 'kernel-smp', 'kernel-grsecurity', 'kernel-grsecurity-smp', 'kernel-desktop', 'kernel-laptop', 'kernel-vanilla']
-ksubpkgs = ['drm', 'pcmcia' 'sound-oss', 'sound-alsa']
+ksubpkgs = ['drm', 'pcmcia', 'sound-oss', 'sound-alsa']
 
 def preresolve_hook(conduit):
     ts = conduit.getTsInfo()
