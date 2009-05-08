@@ -2,12 +2,12 @@
 Summary:	A collection of utilities related to yum
 Summary(pl.UTF-8):	Zestaw narzędzi związanych z yumem
 Name:		yum-utils
-Version:	1.1.19
-Release:	0.2
+Version:	1.1.21
+Release:	0.1
 License:	GPL
 Group:		Applications/System
 Source0:	http://linux.duke.edu/yum/download/yum-utils/%{name}-%{version}.tar.gz
-# Source0-md5:	ebd74b37c9d87ebcce43670f94ceedf4
+# Source0-md5:	3d19fd09adf74780b08fe0f5b0f77efe
 Source1:	yum-plugin-pld-kernel.py
 Source2:	yum-plugin-pld-kernel.conf
 URL:		http://linux.duke.edu/yum/download/yum-utils/
