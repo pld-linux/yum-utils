@@ -2,12 +2,12 @@
 Summary:	A collection of utilities related to yum
 Summary(pl.UTF-8):	Zestaw narzędzi związanych z yumem
 Name:		yum-utils
-Version:	1.1.21
+Version:	1.1.22
 Release:	0.1
 License:	GPL
 Group:		Applications/System
 Source0:	http://linux.duke.edu/yum/download/yum-utils/%{name}-%{version}.tar.gz
-# Source0-md5:	3d19fd09adf74780b08fe0f5b0f77efe
+# Source0-md5:	91373d40b9703f04d12eb289932077a1
 Source1:	yum-plugin-pld-kernel.py
 Source2:	yum-plugin-pld-kernel.conf
 URL:		http://linux.duke.edu/yum/download/yum-utils/
@@ -416,7 +416,7 @@ rm -rf $RPM_BUILD_ROOT
 
 # Plugins to install
 plugins="changelog fastestmirror protectbase versionlock tsflags kernel-module \
-         downloadonly allowdowngrade skip-broken priorities refresh-updatesd merge-conf \
+         downloadonly allowdowngrade priorities refresh-updatesd merge-conf \
          security protect-packages basearchonly upgrade-helper aliases list-data filter-data tmprepo verify"
 
 install -d $RPM_BUILD_ROOT%{_sysconfdir}/yum/pluginconf.d/ $RPM_BUILD_ROOT%{_datadir}/yum-plugins
@@ -521,11 +521,6 @@ fi
 %defattr(644,root,root,755)
 %config(noreplace) %verify(not md5 mtime size) %{_sysconfdir}/yum/pluginconf.d/allowdowngrade.conf
 %{_datadir}/yum-plugins/allowdowngrade.*
-
-%files -n yum-skip-broken
-%defattr(644,root,root,755)
-%config(noreplace) %verify(not md5 mtime size) %{_sysconfdir}/yum/pluginconf.d/skip-broken.conf
-%{_datadir}/yum-plugins/skip-broken.*
 
 %files -n yum-pld-kernel
 %defattr(644,root,root,755)
