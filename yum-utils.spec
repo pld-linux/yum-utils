@@ -361,7 +361,7 @@ licenses, arches, committers, buildhosts, baseurls, package-sizes,
 archive-sizes and installed-sizes. Note that each package must match
 at least one pattern/range in each category, if any were specified.
 
-%description -n yum-filter-data -l pl
+%description -n yum-filter-data -l pl.UTF-8
 Ta wtyczka dodaje opcje --filter- vendors, groups, packagers,
 licenses, arches, committers, buildhosts, baseurls, package-sizes,
 archive-sizes i installed-sizes. Każdy pakiet musi pasować do
