@@ -280,8 +280,8 @@ Ta wtyczka zapobiega usunięciu przez yuma siebie samego lub innych
 chronionych pakietów. Domyślnie jedynym chronionym pakietem jest yum,
 ale poprzez rozszerzenie automatycznie zabezpiecza to wszystkie
 pakiety będące zależnościami yuma (rpm, python, glibc itd.). W ten
-sposób wtyczka funkcjonuje dobrze nawet bez troskliwego tworzenia
-list wszystkich ważnych pakietów.
+sposób wtyczka funkcjonuje dobrze nawet bez troskliwego tworzenia list
+wszystkich ważnych pakietów.
 
 %package -n yum-basearchonly
 Summary:	Yum plugin to let Yum install only basearch packages
