@@ -380,7 +380,7 @@ Summary(pl.UTF-8):	Wtyczka yuma dodająca repozytoria tymczasowe
 Group:		Base
 Requires:	createrepo
 Requires:	yum >= 3.2.11
-Obsoletes; yum-tmprepo
+Obsoletes:	yum-tmprepo
 
 %description -n yum-plugin-tmprepo
 This plugin adds the option --tmprepo which takes a URL to a .repo
