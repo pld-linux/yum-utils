@@ -1,23 +1,24 @@
-# TODO: %files
 Summary:	A collection of utilities related to yum
 Summary(pl.UTF-8):	Zestaw narzędzi związanych z yumem
 Name:		yum-utils
-Version:	1.1.22
-Release:	0.1
+Version:	1.1.31
+Release:	1
 License:	GPL
 Group:		Applications/System
-Source0:	http://linux.duke.edu/yum/download/yum-utils/%{name}-%{version}.tar.gz
-# Source0-md5:	91373d40b9703f04d12eb289932077a1
+Source0:	http://yum.baseurl.org/download/yum-utils/%{name}-%{version}.tar.gz
+# Source0-md5:	b2859b89321b98f2581243536e1b4993
 Source1:	yum-plugin-pld-kernel.py
 Source2:	yum-plugin-pld-kernel.conf
-URL:		http://linux.duke.edu/yum/download/yum-utils/
+URL:		http://yum.baseurl.org/download/yum-utils/
 BuildRequires:	gettext-devel
 BuildRequires:	rpm-pythonprov
 BuildRequires:	rpmbuild(macros) >= 1.228
 Requires:	python >= 1:2.5
-Requires:	yum >= 3.1.1
+Requires:	yum >= 3.2.29
 BuildArch:	noarch
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
+
+%define		_libexecdir	%{_prefix}/lib/%{name}
 
 %description
 Yum-utils is a collection of utilities, plugins and examples related
@@ -46,80 +47,88 @@ Uruchamianie yum update przy starcie systemu. Pozwala to maszynom
 wyłączonym na dłuższy czas stać się bezpiecznymi natychmiast, bez
 czekania na kolejne poranne zadanie crona.
 
-%package -n yum-changelog
+%package -n yum-plugin-changelog
 Summary:	Yum plugin for viewing package changelogs before/after updating
 Summary(pl.UTF-8):	Wtyczka yuma do oglądania list zmian pakietów przed/po uaktualnieniu
 Group:		Base
-Requires:	yum >= 3.0
+# changelog requires new update_md.UpdateMetadata() API in 3.2.23
+Requires:	python-dateutil
+Requires:	yum >= 3.2.23
+Obsoletes:	yum-changelog
 
-%description -n yum-changelog
+%description -n yum-plugin-changelog
 This plugin adds a command line option to allow viewing package
 changelog deltas before or after updating packages.
 
-%description -n yum-changelog -l pl.UTF-8
+%description -n yum-plugin-changelog -l pl.UTF-8
 Ta wtyczka dodaje opcję linii poleceń pozwalającą oglądać przyrostowo
 listę zmian pakietu (changelog) przed lub po uaktualnieniu.
 
-%package -n yum-fastestmirror
+%package -n yum-plugin-fastestmirror
 Summary:	Yum plugin which chooses fastest repository from a mirrorlist
 Summary(pl.UTF-8):	Wtyczka yuma wybierająca najszybsze repozytorium z listy serwerów lustrzanych
 Group:		Base
 Requires:	yum >= 3.0
+Obsoletes:	yum-fastestmirror
 
-%description -n yum-fastestmirror
+%description -n yum-plugin-fastestmirror
 This plugin sorts each repository's mirrorlist by connection speed
 prior to downloading packages.
 
-%description -n yum-fastestmirror -l pl.UTF-8
+%description -n yum-plugin-fastestmirror -l pl.UTF-8
 Ta wtyczka sortuje listy serwerów lustrzanych każdego repozytorium po
 szybkości połączenia przed rozpoczęciem ściągania pakietów.
 
-%package -n yum-protectbase
+%package -n yum-plugin-protectbase
 Summary:	Yum plugin to protect packages from certain repositories
 Summary(pl.UTF-8):	Wtyczka yuma zabezpieczająca pakiety z pewnych repozytoriów
 Group:		Base
 Requires:	yum >= 3.0
+Obsoletes:	yum-protectbase
 
-%description -n yum-protectbase
+%description -n yum-plugin-protectbase
 This plugin allows certain repositories to be protected. Packages in
 the protected repositories can't be overridden by packages in
 non-protected repositories even if the non-protected repo has a later
 version.
 
-%description -n yum-protectbase -l pl.UTF-8
+%description -n yum-plugin-protectbase -l pl.UTF-8
 Ta wtyczka pozwala na zabezpieczenie pewnych repozytoriów. Pakiety z
 zabezpieczonych repozytoriów nie mogą być przykryte przez pakiety z
 repozytoriów niezabezpieczonych, nawet jeśli w niezabezpieczonym jest
 nowsza wersja.
 
-%package -n yum-versionlock
+%package -n yum-plugin-versionlock
 Summary:	Yum plugin to lock specified packages from being updated
 Summary(pl.UTF-8):	Wtyczka yuma blokująca uaktualnianie określonych pakietów
 Group:		Base
-Requires:	yum >= 3.0
+Requires:	yum >= 3.2.24
+Obsoletes:	yum-versionlock
 
-%description -n yum-versionlock
+%description -n yum-plugin-versionlock
 This plugin allows certain packages specified in a file to be
 protected from being updated by newer versions.
 
-%description -n yum-versionlock -l pl.UTF-8
+%description -n yum-plugin-versionlock -l pl.UTF-8
 Ta wtyczka pozwala chronić pewne pakiety określone w pliku przed
 uaktualnieniem do nowszych wersji.
 
-%package -n yum-tsflags
+%package -n yum-plugin-tsflags
 Summary:	Yum plugin to add tsflags by a commandline option
 Summary(pl.UTF-8):	Wtyczka yuma dodająca flagi transakcji opcją linii poleceń
 Group:		Base
 Requires:	yum >= 3.0
+Obsoletes:	yum-tsflags
 
-%description -n yum-tsflags
+%description -n yum-plugin-tsflags
 This plugin allows you to specify optional transaction flags on the
 yum command line.
 
-%description -n yum-tsflags -l pl.UTF-8
+%description -n yum-plugin-tsflags -l pl.UTF-8
 Ta wtyczka pozwala określić dodatkowe flagi transakcji z linii
 poleceń.
 
+# TODO: figure if to remove in pld
 %package -n yum-kernel-module
 Summary:	Yum plugin to handle kernel-module-foo type of kernel module
 Summary(pl.UTF-8):	Wtyczka yuma obsługująca moduły jądra typu kernel-module-foo
@@ -134,17 +143,18 @@ modules when new version of kernels are installed.
 Ta wtyczka obsługuje instalację modułów jądra typu kernel-module-foo
 kiedy zainstalowane są nowe wersje jądra.
 
-%package -n yum-downloadonly
+%package -n yum-plugin-downloadonly
 Summary:	Yum plugin to add downloadonly command option
 Summary(pl.UTF-8):	Wtyczka yuma dodająca opcję linii poleceń downloadonly
 Group:		Base
 Requires:	yum >= 3.0
+Obsoletes:	yum-downloadonly
 
-%description -n yum-downloadonly
+%description -n yum-plugin-downloadonly
 This plugin adds a --downloadonly flag to yum so that yum will only
 download the packages and not install/update them.
 
-%description -n yum-downloadonly -l pl.UTF-8
+%description -n yum-plugin-downloadonly -l pl.UTF-8
 Ta wtyczka dodaje flagę --downloadonly do yuma, powodującą, że yum
 tylko ściąga pakiety bez ich instalacji/uaktualniania.
 
@@ -163,84 +173,90 @@ Ta wtyczka dodaje do yuma flagę --allow-downgrade, umożliwiającą
 ręczne zastępowanie pakietów określonymi starszymi wersjami
 (downgrade).
 
-%package -n yum-pld-kernel
+%package -n yum-plugin-pld-kernel
 Summary:	Yum plugin to handle PLD kernel installs
 Summary(pl.UTF-8):	Wtyczka yuma obsługująca instalację jąder PLD
 Group:		Base
 Requires:	yum >= 3.0
+Obsoletes:	yum-pld-kernel
 
-%description -n yum-pld-kernel
+%description -n yum-plugin-pld-kernel
 This plugin handle installation of PLD kernels.
 
-%description -n yum-pld-kernel -l pl.UTF-8
+%description -n yum-plugin-pld-kernel -l pl.UTF-8
 Ta wtyczka obsługuje instalację jąder PLD.
 
-%package -n yum-priorities
+%package -n yum-plugin-priorities
 Summary:	Plugin to give priorities to packages from different repos
 Summary(pl.UTF-8):	Wtyczka nadająca priorytety pakietom z różnych repozytoriów
 Group:		Base
 Requires:	yum >= 3.0
+Obsoletes:	yum-priorities
 
-%description -n yum-priorities
+%description -n yum-plugin-priorities
 This plugin allows repositories to have different priorities. Packages
 in a repository with a lower priority can't be overridden by packages
 from a repository with a higher priority even if repo has a later
 version.
 
-%description -n yum-priorities -l pl.UTF-8
+%description -n yum-plugin-priorities -l pl.UTF-8
 Ta wtyczka umożliwia przypisanie repozytoriom różnych priorytetów.
 Pakiety z repozytorium o niższym priorytecie nie mogą być przykryte
 przez pakiety z repozytorium o wyższym priorytecie nawet jeśli te
 drugie mają nowszą wersję.
 
-%package -n yum-refresh-updatesd
+%package -n yum-plugin-refresh-updatesd
 Summary:	Tell yum-updatesd to check for updates when yum exits
 Summary(pl.UTF-8):	Sprawdzanie uaktualnień przez yum-updatesd przy zakończeniu yuma
 Group:		Base
 Requires:	yum >= 3.0
 Requires:	yum-updatesd
+Obsoletes:	yum-refresh-updatesd
 
-%description -n yum-refresh-updatesd
-yum-refresh-updatesd tells yum-updatesd to check for updates when yum
-exits. This way, if you run 'yum update' and install all available
-updates, puplet will almost instantly update itself to reflect this.
+%description -n yum-plugin-refresh-updatesd
+yum-plugin-refresh-updatesd tells yum-updatesd to check for updates
+when yum exits. This way, if you run 'yum update' and install all
+available updates, puplet will almost instantly update itself to
+reflect this.
 
-%description -n yum-refresh-updatesd -l pl.UTF-8
-yum-refresh-updatesd przekazuje yum-updatesd, aby sprawdzał
+%description -n yum-plugin-refresh-updatesd -l pl.UTF-8
+yum-plugin-refresh-updatesd przekazuje yum-updatesd, aby sprawdzał
 uaktualnienia kiedy yum kończy pracę. W ten sposób po uruchomieniu
 "yum update" i zainstalowaniu wszystkich dostępnych uaktualnień puplet
 prawie natychmiast uaktualni swoje informacje.
 
-%package -n yum-merge-conf
+%package -n yum-plugin-merge-conf
 Summary:	Yum plugin to merge configuration changes when installing packages
 Summary(pl.UTF-8):	Wtyczka yuma do włączania zmian konfiguracji przy instalacji pakietów
 Group:		Base
 Requires:	yum >= 3.0
+Obsoletes:	yum-merge-conf
 
-%description -n yum-merge-conf
+%description -n yum-plugin-merge-conf
 This yum plugin adds the "--merge-conf" command line option. With this
 option, Yum will ask you what to do with config files which have
 changed on updating a package.
 
-%description -n yum-merge-conf -l pl.UTF-8
+%description -n yum-plugin-merge-conf -l pl.UTF-8
 Ta wtyczka yuma dodaje opcję linii poleceń --merge-conf. Przy jej
 użyciu yum pyta co zrobić z plikami konfiguracyjnymi, które zmieniły
 się przy uaktualnianiu pakietu.
 
-%package -n yum-security
+%package -n yum-plugin-security
 Summary:	Yum plugin to enable security filters
 Summary(pl.UTF-8):	Wtyczka yuma włączająca filtry bezpieczeństwa
 Group:		Base
-Requires:	yum >= 3.0.5
+Requires:	yum >= 3.2.18
+Obsoletes:	yum-security
 
-%description -n yum-security
+%description -n yum-plugin-security
 This plugin adds the options --security, --cve, --bz and --advisory
 flags to yum and the list-security and info-security commands. The
 options make it possible to limit list/upgrade of packages to specific
 security relevant ones. The commands give you the security
 information.
 
-%description -n yum-security -l pl.UTF-8
+%description -n yum-plugin-security -l pl.UTF-8
 Ta wtyczka dodaje do yuma flagi --security, --cve, --bz i --advisory
 oraz polecenia list-security i info-security. Opcje te umożliwiają
 ograniczenie listy/uaktualnień pakietów do związanych z
@@ -288,102 +304,227 @@ zostanie zainstalowany tylko "foo-x.y.x86_64.rpm. Aby zainstalować
 foo-x.y.i386.rpm, trzeba wpisać "yum install foo.i386". Wtyczka działa
 tylko z "yum install".
 
-%package -n yum-upgrade-helper
+%package -n yum-plugin-upgrade-helper
 Summary:	Yum plugin to help upgrades to the next distribution version
 Summary(pl.UTF-8):	Wtyczka yuma pomagająca przy uaktualnianiu do kolejnej wersji dystrybucji
 Group:		Base
 Requires:	yum >= 3.0
+Obsoletes:	yum-upgrade-helper
 
-%description -n yum-upgrade-helper
+%description -n yum-plugin-upgrade-helper
 This plugin allows yum to erase specific packages on install/update
 based on an additional metadata file in repositories. It is used to
 simplify distribution upgrade hangups.
 
-%description -n yum-upgrade-helper -l pl.UTF-8
+%description -n yum-plugin-upgrade-helper -l pl.UTF-8
 Ta wtyczka pozwala yumowi usunąć określone pakiety przy instalacji lub
 uaktualnianiu w oparciu o dodatkowe pliki metadanych w repozytoriach.
 Służy do uproszczenia uaktualnień wersji dystrybucji.
 
-%package -n yum-aliases
+%package -n yum-plugin-aliases
 Summary:	Yum plugin to enable aliases filters
 Summary(pl.UTF-8):	Wtyczka yuma włączająca filtry aliasów
 Group:		Base
-Requires:	yum >= 3.0.5
+# Requires args_hook
+Requires:	yum >= 3.2.23
+Requires:	yum-utils-translations = %{version}-%{release}
+Obsoletes:	yum-aliases
 
-%description -n yum-aliases
+%description -n yum-plugin-aliases
 This plugin adds the command alias, and parses the aliases config.
 file to enable aliases.
 
-%description -n yum-aliases -l pl.UTF-8
+%description -n yum-plugin-aliases -l pl.UTF-8
 Ta wtyczka dodaje polecenie alias i analizuje konfigurację aliasów w
 celu włączenia aliasów.
 
-%package -n yum-list-data
+%package -n yum-plugin-list-data
 Summary:	Yum plugin to list aggregate package data
 Summary(pl.UTF-8):	Wtyczka yuma wypisująca zagregowane dane pakietów
 Group:		Base
 Requires:	yum >= 3.0.5
+Obsoletes:	yum-list-data
 
-%description -n yum-list-data
+%description -n yum-plugin-list-data
 This plugin adds the commands list- vendors, groups, packagers,
 licenses, arches, committers, buildhosts, baseurls, package-sizes,
 archive-sizes and installed-sizes.
 
-%description -n yum-list-data -l pl.UTF-8
+%description -n yum-plugin-list-data -l pl.UTF-8
 Ta wtyczka dodaje polecenia list- vendors, groups, packagers,
 licenses, arches, committers, buildhosts, baseurls, package-sizes,
 archive-sizes i installed-sizes.
 
-%package -n yum-filter-data
+%package -n yum-plugin-filter-data
 Summary:	Yum plugin to list filter based on package data
 Summary(pl.UTF-8):	Wtyczka yuma dodająca filtry oparte na danych pakietu
 Group:		Base
-Requires:	yum >= 3.0.5
+Requires:	yum >= 3.2.17
+Obsoletes:	yum-filter-data
 
-%description -n yum-filter-data
+%description -n yum-plugin-filter-data
 This plugin adds the options --filter- vendors, groups, packagers,
 licenses, arches, committers, buildhosts, baseurls, package-sizes,
 archive-sizes and installed-sizes. Note that each package must match
 at least one pattern/range in each category, if any were specified.
 
-%description -n yum-filter-data -l pl.UTF-8
+%description -n yum-plugin-filter-data -l pl.UTF-8
 Ta wtyczka dodaje opcje --filter- vendors, groups, packagers,
 licenses, arches, committers, buildhosts, baseurls, package-sizes,
 archive-sizes i installed-sizes. Każdy pakiet musi pasować do
 przynajmniej jednego wzorca/zakresu w każdej wybranej kategorii.
 
-%package -n yum-tmprepo
+%package -n yum-plugin-tmprepo
 Summary:	Yum plugin to add temporary repositories
 Summary(pl.UTF-8):	Wtyczka yuma dodająca repozytoria tymczasowe
 Group:		Base
+Requires:	createrepo
 Requires:	yum >= 3.2.11
+Obsoletes; yum-tmprepo
 
-%description -n yum-tmprepo
+%description -n yum-plugin-tmprepo
 This plugin adds the option --tmprepo which takes a URL to a .repo
 file downloads it and enables it for a single run. This plugin tries
 to ensure that temporary repositories are safe to use, by default, by
 not allowing gpg checking to be disabled.
 
-%description -n yum-tmprepo -l pl.UTF-8
+%description -n yum-plugin-tmprepo -l pl.UTF-8
 Ta wtyczka dodaje opcję --tmprepo przyjmującą URL do pliku .repo i
 włączająca go dla jednego uruchomienia. Wtyczka próbuje zapewnić
 bezpieczne użycie repozytoriów tymczasowych domyślnie nie pozwalając
 na wyłączenie sprawdzania gpg.
 
-%package -n yum-verify
+%package -n yum-plugin-verify
 Summary:	Yum plugin to add verify command, and options
 Summary(pl.UTF-8):	Wtyczka yuma dodająca polecenie i opcje weryfikacji
 Group:		Base
 Requires:	yum >= 3.2.12
+Obsoletes:	yum-verify
 
-%description -n yum-verify
+%description -n yum-plugin-verify
 This plugin adds the commands verify, verify-all and verify-rpm. There
 are also a couple of options. This command works like rpm -V, to
 verify your installation.
 
-%description -n yum-verify -l pl.UTF-8
+%description -n yum-plugin-verify -l pl.UTF-8
 Ta wtyczka dodaje polecenia verify, verify-all i verify-rpm, a także
 kilka opcji. Działa podobnie jak rpm -V, weryfikując instalację.
+
+%package -n yum-plugin-keys
+Summary:	Yum plugin to deal with signing keys
+Group:		Base
+Requires:	yum >= 3.2.19
+
+%description -n yum-plugin-keys
+This plugin adds the commands keys, keys-info, keys-data and
+keys-remove. They allow you to query and remove signing keys.
+
+%package -n yum-plugin-remove-with-leaves
+Summary:	Yum plugin to remove dependencies which are no longer used because of a removal
+Group:		Base
+Requires:	yum >= 3.2.19
+
+%description -n yum-plugin-remove-with-leaves
+This plugin removes any unused dependencies that were brought in by an
+install but would not normally be removed. It helps to keep a system
+clean of unused libraries and packages.
+
+%package -n yum-plugin-post-transaction-actions
+Summary:	Yum plugin to run arbitrary commands when certain pkgs are acted on
+Group:		Base
+Requires:	yum >= 3.2.19
+
+%description -n yum-plugin-post-transaction-actions
+This plugin allows the user to run arbitrary actions immediately
+following a transaction when specified packages are changed.
+
+%package -n yum-NetworkManager-dispatcher
+Summary:	NetworkManager script which tells yum to check it's cache on network change
+Group:		Base
+Requires:	yum >= 3.2.17
+
+%description -n yum-NetworkManager-dispatcher
+This NetworkManager "dispatch script" forces yum to check its cache
+if/when a new network connection happens in NetworkManager. Note that
+currently there is no checking of previous data, so if your WiFi keeps
+going up and down (or you suspend/resume a lot) yum will recheck its
+cached data a lot.
+
+%package -n yum-plugin-rpm-warm-cache
+Summary:	Yum plugin to access the rpmdb files early to warm up access to the db
+Group:		Base
+Requires:	yum >= 3.2.19
+
+%description -n yum-plugin-rpm-warm-cache
+This plugin reads the rpmdb files into the system cache before
+accessing the rpmdb directly. In some cases this should speed up
+access to rpmdb information
+
+# Works by searching for *-debuginfo ... so it shouldn't trigger on
+itself.
+%package -n yum-plugin-auto-update-debug-info
+Summary:	Yum plugin to enable automatic updates to installed debuginfo packages
+Group:		Base
+Requires:	yum >= 3.2.19
+
+%description -n yum-plugin-auto-update-debug-info
+This plugin looks to see if any debuginfo packages are installed, and
+if there are it enables all debuginfo repositories that are "children"
+of enabled repositories.
+
+%package -n yum-plugin-show-leaves
+Summary:	Yum plugin which shows newly installed leaf packages
+Group:		Base
+Requires:	yum >= 3.2.23
+
+%description -n yum-plugin-show-leaves
+Yum plugin which shows newly installed leaf packages and packages that
+became leaves after a transaction
+
+%package -n yum-plugin-local
+Summary:	Yum plugin to automatically manage a local repo. of downloaded packages
+Group:		Base
+# Who the hell knows what version:)
+Requires:	createrepo
+Requires:	yum >= 3.2.22
+
+%description -n yum-plugin-local
+When this plugin is installed it will automatically copy all
+downloaded packages to a repository on the local filesystem, and
+(re)build that repository. This means that anything you've downloaded
+will always exist, even if the original repo. removes it (and can
+thus. be reinstalled/downgraded/etc.).
+
+%package -n yum-plugin-fs-snapshot
+Summary:	Yum plugin to automatically snapshot your filesystems during updates
+Group:		Base
+Requires:	yum >= 3.2.22
+
+%description -n yum-plugin-fs-snapshot
+When this plugin is installed it will automatically snapshot any
+filesystem that is touched by the packages in a yum update or yum
+remove.
+
+%package -n yum-plugin-ps
+Summary:	Yum plugin to look at processes, with respect to packages
+Group:		Base
+Requires:	yum >= 3.2.27
+
+%description -n yum-plugin-ps
+When this plugin is installed it adds the yum command "ps", which
+allows you to see which running processes are accociated with which
+packages (and if they need rebooting, or have updates, etc.)
+
+%package -n yum-plugin-puppetverify
+Summary:	Yum plugin to add puppet checksums to verify data
+Group:		Base
+Requires:	PyYAML >= 3.09
+Requires:	puppet
+Requires:	yum >= 3.2.12
+Provides:	yum-puppetverify = %{version}-%{release}
+
+%description -n yum-plugin-puppetverify
+Supplies checksums for files in packages from puppet's state file.
 
 %prep
 %setup -q
@@ -395,27 +536,63 @@ mv plugins/README README.plugins
 
 %install
 rm -rf $RPM_BUILD_ROOT
-
-%{__make} DESTDIR=$RPM_BUILD_ROOT install
-%{__make} -C updateonboot DESTDIR=$RPM_BUILD_ROOT install
+%{__make} install \
+	PYLIBDIR=%{py_scriptdir} \
+	DESTDIR=$RPM_BUILD_ROOT
+%{__make} -C updateonboot install \
+	DESTDIR=$RPM_BUILD_ROOT
 
 # Plugins to install
-plugins="changelog fastestmirror protectbase versionlock tsflags kernel-module \
-         downloadonly allowdowngrade priorities refresh-updatesd merge-conf \
-         security protect-packages basearchonly upgrade-helper aliases list-data filter-data tmprepo verify"
+plugins="
+changelog
+fastestmirror
+protectbase
+versionlock
+tsflags
+kernel-module
+downloadonly
+allowdowngrade
+priorities
+refresh-updatesd
+merge-conf
+security
+basearchonly
+upgrade-helper
+aliases
+list-data
+filter-data
+tmprepo
+verify
 
-install -d $RPM_BUILD_ROOT%{_sysconfdir}/yum/pluginconf.d/ $RPM_BUILD_ROOT%{_datadir}/yum-plugins
+keys
+remove-with-leaves
+post-transaction-actions
+rpm-warm-cache
+auto-update-debuginfo
+show-leaves
+local
+fs-snapshot
+ps
+puppetverify
+"
+
+install -d $RPM_BUILD_ROOT{%{_sysconfdir}/yum/{pluginconf.d,post-actions},%{_libexecdir}}
 
 cd plugins
 for plug in $plugins; do
-	install -m 644 $plug/*.conf $RPM_BUILD_ROOT%{_sysconfdir}/yum/pluginconf.d
-	install $plug/*.py $RPM_BUILD_ROOT%{_datadir}/yum-plugins
+	cp -p $plug/*.conf $RPM_BUILD_ROOT%{_sysconfdir}/yum/pluginconf.d
+	cp -p $plug/*.py $RPM_BUILD_ROOT%{_libexecdir}
 done
-cp -a %{SOURCE1} $RPM_BUILD_ROOT%{_datadir}/yum-plugins/pld-kernel.py
-cp -a %{SOURCE2} $RPM_BUILD_ROOT%{_sysconfdir}/yum/pluginconf.d/pld-kernel.conf
 
-install aliases/aliases $RPM_BUILD_ROOT%{_sysconfdir}/yum/aliases.conf
-install versionlock/versionlock.list $RPM_BUILD_ROOT%{_sysconfdir}/yum/pluginconf.d
+cp -p aliases/aliases $RPM_BUILD_ROOT%{_sysconfdir}/yum/aliases.conf
+cp -p versionlock/versionlock.list $RPM_BUILD_ROOT%{_sysconfdir}/yum/pluginconf.d
+
+# need for for the ghost in files section of yum-plugin-local
+install -d $RPM_BUILD_ROOT%{_sysconfdir}/yum.repos.d
+touch $RPM_BUILD_ROOT%{_sysconfdir}/yum.repos.d/_local.repo
+
+cp -p %{SOURCE1} $RPM_BUILD_ROOT%{_libexecdir}/pld-kernel.py
+cp -p %{SOURCE2} $RPM_BUILD_ROOT%{_sysconfdir}/yum/pluginconf.d/pld-kernel.conf
 
 %py_postclean
 
@@ -426,7 +603,7 @@ rm -rf $RPM_BUILD_ROOT
 /sbin/chkconfig --add yum-updateonboot
 
 %preun -n yum-updateonboot
-if [ $1 = 0 ]; then
+if [ "$1" = 0 ]; then
 	%service yum-updateonboot stop
 	/sbin/chkconfig --del yum-updateonboot
 fi
@@ -436,6 +613,8 @@ fi
 %doc ChangeLog README README.plugins TODO
 %doc yum-util-cli-template
 %attr(755,root,root) %{_bindir}/debuginfo-install
+%attr(755,root,root) %{_bindir}/find-repos-of-install
+%attr(755,root,root) %{_bindir}/needs-restarting
 %attr(755,root,root) %{_bindir}/package-cleanup
 %attr(755,root,root) %{_bindir}/repo-graph
 %attr(755,root,root) %{_bindir}/repo-rss
@@ -445,17 +624,39 @@ fi
 %attr(755,root,root) %{_bindir}/repoquery
 %attr(755,root,root) %{_bindir}/reposync
 %attr(755,root,root) %{_bindir}/repotrack
+%attr(755,root,root) %{_bindir}/show-changed-rco
+%attr(755,root,root) %{_bindir}/show-installed
+%attr(755,root,root) %{_bindir}/verifytree
 %attr(755,root,root) %{_bindir}/yum-builddep
+%attr(755,root,root) %{_bindir}/yum-config-manager
+%attr(755,root,root) %{_bindir}/yum-debug-dump
+%attr(755,root,root) %{_bindir}/yum-debug-restore
+%attr(755,root,root) %{_bindir}/yum-groups-manager
 %attr(755,root,root) %{_bindir}/yumdownloader
 %attr(755,root,root) %{_sbindir}/yum-complete-transaction
+%attr(755,root,root) %{_sbindir}/yumdb
+%dir %{py_sitescriptdir}/yumutils
+%{py_sitescriptdir}/yumutils/*.py[co]
+%{_mandir}/man1/debuginfo-install.1*
 %{_mandir}/man1/package-cleanup.1.*
 %{_mandir}/man1/repo-rss.1.*
+%{_mandir}/man1/repodiff.1*
 %{_mandir}/man1/repoquery.1.*
 %{_mandir}/man1/reposync.1.*
+%{_mandir}/man1/show-changed-rco.1*
+%{_mandir}/man1/show-installed.1*
+%{_mandir}/man1/yum-aliases.1*
 %{_mandir}/man1/yum-builddep.1.*
+%{_mandir}/man1/yum-debug-dump.1*
+%{_mandir}/man1/yum-fs-snapshot.1*
+%{_mandir}/man1/yum-groups-manager.1*
 %{_mandir}/man1/yum-utils.1.*
+%{_mandir}/man1/yum-versionlock.1*
 %{_mandir}/man1/yumdownloader.1.*
+%{_mandir}/man5/yum-fs-snapshot.conf.5*
+%{_mandir}/man5/yum-versionlock.conf.5*
 %{_mandir}/man8/yum-complete-transaction.8.*
+%{_mandir}/man8/yumdb.8*
 
 %files -n yum-updateonboot
 %defattr(644,root,root,755)
@@ -463,116 +664,182 @@ fi
 %config(noreplace) %verify(not md5 mtime size) /etc/sysconfig/yum-updateonboot
 %attr(754,root,root) /etc/rc.d/init.d/yum-updateonboot
 
-%files -n yum-changelog
+%files -n yum-plugin-changelog
 %defattr(644,root,root,755)
 %config(noreplace) %verify(not md5 mtime size) %{_sysconfdir}/yum/pluginconf.d/changelog.conf
-%{_datadir}/yum-plugins/changelog.*
+%{_libexecdir}/changelog.*
 %{_mandir}/man1/yum-changelog.1.*
 %{_mandir}/man5/yum-changelog.conf.5.*
 
-%files -n yum-fastestmirror
+%files -n yum-plugin-fastestmirror
 %defattr(644,root,root,755)
 %config(noreplace) %verify(not md5 mtime size) %{_sysconfdir}/yum/pluginconf.d/fastestmirror.conf
-%{_datadir}/yum-plugins/fastestmirror.*
+%{_libexecdir}/fastestmirror.*
 
-%files -n yum-protectbase
+%files -n yum-plugin-protectbase
 %defattr(644,root,root,755)
 %config(noreplace) %verify(not md5 mtime size) %{_sysconfdir}/yum/pluginconf.d/protectbase.conf
-%{_datadir}/yum-plugins/protectbase.*
+%{_libexecdir}/protectbase.*
 
-%files -n yum-versionlock
+%files -n yum-plugin-versionlock
 %defattr(644,root,root,755)
 %doc plugins/versionlock/README
 %config(noreplace) %verify(not md5 mtime size) %{_sysconfdir}/yum/pluginconf.d/versionlock.conf
 %config(noreplace) %verify(not md5 mtime size) %{_sysconfdir}/yum/pluginconf.d/versionlock.list
-%{_datadir}/yum-plugins/versionlock.*
+%{_libexecdir}/versionlock.*
 
-%files -n yum-tsflags
+%files -n yum-plugin-tsflags
 %defattr(644,root,root,755)
 %config(noreplace) %verify(not md5 mtime size) %{_sysconfdir}/yum/pluginconf.d/tsflags.conf
-%{_datadir}/yum-plugins/tsflags.*
+%{_libexecdir}/tsflags.*
 
+# TODO: remove in pld? removed in fedora
 %files -n yum-kernel-module
 %defattr(644,root,root,755)
 %config(noreplace) %verify(not md5 mtime size) %{_sysconfdir}/yum/pluginconf.d/kernel-module.conf
-%{_datadir}/yum-plugins/kernel-module.*
+%{_libexecdir}/kernel-module.*
 
-%files -n yum-downloadonly
+%files -n yum-plugin-downloadonly
 %defattr(644,root,root,755)
 %config(noreplace) %verify(not md5 mtime size) %{_sysconfdir}/yum/pluginconf.d/downloadonly.conf
-%{_datadir}/yum-plugins/downloadonly.*
+%{_libexecdir}/downloadonly.*
 
+# TODO: remove like fedora?
 %files -n yum-allowdowngrade
 %defattr(644,root,root,755)
 %config(noreplace) %verify(not md5 mtime size) %{_sysconfdir}/yum/pluginconf.d/allowdowngrade.conf
-%{_datadir}/yum-plugins/allowdowngrade.*
+%{_libexecdir}/allowdowngrade.*
 
-%files -n yum-pld-kernel
+%files -n yum-plugin-pld-kernel
 %defattr(644,root,root,755)
 %config(noreplace) %verify(not md5 mtime size) %{_sysconfdir}/yum/pluginconf.d/pld-kernel.conf
-%{_datadir}/yum-plugins/pld-kernel.*
+%{_libexecdir}/pld-kernel.*
 
-%files -n yum-priorities
+%files -n yum-plugin-priorities
 %defattr(644,root,root,755)
 %config(noreplace) %verify(not md5 mtime size) %{_sysconfdir}/yum/pluginconf.d/priorities.conf
-%{_datadir}/yum-plugins/priorities.*
+%{_libexecdir}/priorities.*
 
-%files -n yum-refresh-updatesd
+%files -n yum-plugin-refresh-updatesd
 %defattr(644,root,root,755)
 %config(noreplace) %verify(not md5 mtime size) %{_sysconfdir}/yum/pluginconf.d/refresh-updatesd.conf
-%{_datadir}/yum-plugins/refresh-updatesd.*
+%{_libexecdir}/refresh-updatesd.*
 
-%files -n yum-merge-conf
+%files -n yum-plugin-merge-conf
 %defattr(644,root,root,755)
 %config(noreplace) %verify(not md5 mtime size) %{_sysconfdir}/yum/pluginconf.d/merge-conf.conf
-%{_datadir}/yum-plugins/merge-conf.*
+%{_libexecdir}/merge-conf.*
 
-%files -n yum-security
+%files -n yum-plugin-security
 %defattr(644,root,root,755)
 %config(noreplace) %verify(not md5 mtime size) %{_sysconfdir}/yum/pluginconf.d/security.conf
-%{_datadir}/yum-plugins/security.*
+%{_libexecdir}/security.*
 %{_mandir}/man8/yum-security.8.*
 
+%if 0
+# TODO: renamed to protectbase?
 %files -n yum-protect-packages
 %defattr(644,root,root,755)
 %config(noreplace) %verify(not md5 mtime size) %{_sysconfdir}/yum/pluginconf.d/protect-packages.conf
-%{_datadir}/yum-plugins/protect-packages.*
+%{_libexecdir}/protect-packages.*
+%endif
 
+# TODO: rename to basearchonly like fedora?
 %files -n yum-basearchonly
 %defattr(644,root,root,755)
 %config(noreplace) %verify(not md5 mtime size) %{_sysconfdir}/yum/pluginconf.d/basearchonly.conf
-%{_datadir}/yum-plugins/basearchonly.*
+%{_libexecdir}/basearchonly.*
 
-%files -n yum-upgrade-helper
+%files -n yum-plugin-upgrade-helper
 %defattr(644,root,root,755)
 %config(noreplace) %verify(not md5 mtime size) %{_sysconfdir}/yum/pluginconf.d/upgrade-helper.conf
-%{_datadir}/yum-plugins/upgrade-helper.*
+%{_libexecdir}/upgrade-helper.*
 
-%files -n yum-aliases
+%files -n yum-plugin-aliases
 %defattr(644,root,root,755)
 %config(noreplace) %verify(not md5 mtime size) %{_sysconfdir}/yum/pluginconf.d/aliases.conf
 %config(noreplace) %{_sysconfdir}/yum/aliases.conf
-%{_datadir}/yum-plugins/aliases.*
+%{_libexecdir}/aliases.*
 
-%files -n yum-list-data
+%files -n yum-plugin-list-data
 %defattr(644,root,root,755)
 %config(noreplace) %verify(not md5 mtime size) %{_sysconfdir}/yum/pluginconf.d/list-data.conf
-%{_datadir}/yum-plugins/list-data.*
+%{_libexecdir}/list-data.*
 %{_mandir}/man1/yum-list-data.1.*
 
-%files -n yum-filter-data
+%files -n yum-plugin-filter-data
 %defattr(644,root,root,755)
 %config(noreplace) %verify(not md5 mtime size) %{_sysconfdir}/yum/pluginconf.d/filter-data.conf
-%{_datadir}/yum-plugins/filter-data.*
+%{_libexecdir}/filter-data.*
 %{_mandir}/man1/yum-filter-data.1.*
 
-%files -n yum-tmprepo
+%files -n yum-plugin-tmprepo
 %defattr(644,root,root,755)
 %config(noreplace) %verify(not md5 mtime size) %{_sysconfdir}/yum/pluginconf.d/tmprepo.conf
-%{_datadir}/yum-plugins/tmprepo.*
+%{_libexecdir}/tmprepo.*
 
-%files -n yum-verify
+%files -n yum-plugin-verify
 %defattr(644,root,root,755)
 %config(noreplace) %verify(not md5 mtime size) %{_sysconfdir}/yum/pluginconf.d/verify.conf
-%{_datadir}/yum-plugins/verify.*
+%{_libexecdir}/verify.*
 %{_mandir}/man1/yum-verify.1.*
+
+%files -n yum-plugin-keys
+%defattr(644,root,root,755)
+%config(noreplace) %{_sysconfdir}/yum/pluginconf.d/keys.conf
+%{_libexecdir}/keys.*
+
+%files -n yum-NetworkManager-dispatcher
+%defattr(644,root,root,755)
+%{_sysconfdir}/NetworkManager/dispatcher.d/yum-NetworkManager-dispatcher
+
+%files -n yum-plugin-remove-with-leaves
+%defattr(644,root,root,755)
+%{_libexecdir}/remove-with-leaves.*
+%config(noreplace) %{_sysconfdir}/yum/pluginconf.d/remove-with-leaves.conf
+
+%files -n yum-plugin-post-transaction-actions
+%defattr(644,root,root,755)
+%{_libexecdir}/post-transaction-actions.*
+%config(noreplace) %{_sysconfdir}/yum/pluginconf.d/post-transaction-actions.conf
+%doc plugins/post-transaction-actions/sample.action
+# Default *.action file dropping dir.
+%dir %{_sysconfdir}/yum/post-actions
+
+%files -n yum-plugin-rpm-warm-cache
+%defattr(644,root,root,755)
+%{_libexecdir}/rpm-warm-cache.*
+%config(noreplace) %{_sysconfdir}/yum/pluginconf.d/rpm-warm-cache.conf
+
+%files -n yum-plugin-auto-update-debug-info
+%defattr(644,root,root,755)
+%{_libexecdir}/auto-update-debuginfo.*
+%config(noreplace) %{_sysconfdir}/yum/pluginconf.d/auto-update-debuginfo.conf
+
+%files -n yum-plugin-show-leaves
+%defattr(644,root,root,755)
+%{_libexecdir}/show-leaves.*
+%config(noreplace) %{_sysconfdir}/yum/pluginconf.d/show-leaves.conf
+
+%files -n yum-plugin-local
+%defattr(644,root,root,755)
+%ghost %{_sysconfdir}/yum.repos.d/_local.repo
+%config(noreplace) %{_sysconfdir}/yum/pluginconf.d/local.conf
+%{_libexecdir}/local.*
+
+%files -n yum-plugin-fs-snapshot
+%defattr(644,root,root,755)
+%config(noreplace) %{_sysconfdir}/yum/pluginconf.d/fs-snapshot.conf
+%{_libexecdir}/fs-snapshot.*
+%{_mandir}/man1/yum-fs-snapshot.1.*
+%{_mandir}/man5/yum-fs-snapshot.conf.5.*
+
+%files -n yum-plugin-ps
+%defattr(644,root,root,755)
+%config(noreplace) %{_sysconfdir}/yum/pluginconf.d/ps.conf
+%{_libexecdir}/ps.*
+
+%files -n yum-plugin-puppetverify
+%defattr(644,root,root,755)
+%config(noreplace) %{_sysconfdir}/yum/pluginconf.d/puppetverify.conf
+%{_libexecdir}/puppetverify.*
