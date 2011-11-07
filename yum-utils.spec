@@ -526,6 +526,19 @@ Provides:	yum-puppetverify = %{version}-%{release}
 %description -n yum-plugin-puppetverify
 Supplies checksums for files in packages from puppet's state file.
 
+%package -n bash-completion-%{name}
+Summary:	bash-completion for Yum Utils
+Summary(pl.UTF-8):	bashowe uzupełnianie nazw dla Yum Utils
+Group:		Applications/Shells
+Requires:	%{name}
+Requires:	bash-completion
+
+%description -n bash-completion-%{name}
+bash-completion for Yum Utils.
+
+%description -n bash-completion-%{name} -l pl.UTF-8
+bashowe uzupełnianie nazw dla Yum Utils.
+
 %prep
 %setup -q
 
@@ -843,3 +856,7 @@ fi
 %defattr(644,root,root,755)
 %config(noreplace) %{_sysconfdir}/yum/pluginconf.d/puppetverify.conf
 %{_libexecdir}/puppetverify.*
+
+%files -n bash-completion-%{name}
+%defattr(644,root,root,755)
+/etc/bash_completion.d/*
