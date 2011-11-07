@@ -163,21 +163,6 @@ Ta wtyczka dodaje do yuma flagę --allow-downgrade, umożliwiającą
 ręczne zastępowanie pakietów określonymi starszymi wersjami
 (downgrade).
 
-%package -n yum-skip-broken
-Summary:	Yum plugin to handle skiping packages with dependency problems
-Summary(pl.UTF-8):	Wtyczka yuma obsługująca pomijanie pakietów mających problematyczne zależności
-Group:		Base
-Requires:	yum >= 3.0
-
-%description -n yum-skip-broken
-This plugin adds a --skip-broken to yum to make it possible to check
-packages for dependency problems and skip the one with problems.
-
-%description -n yum-skip-broken -l pl.UTF-8
-Ta wtyczka dodaje do yuma opcję --skip-broken, umożliwiającą
-sprawdzanie pakietów pod kątem problemów z zależnościami i pomijanie
-problematycznych.
-
 %package -n yum-pld-kernel
 Summary:	Yum plugin to handle PLD kernel installs
 Summary(pl.UTF-8):	Wtyczka yuma obsługująca instalację jąder PLD
