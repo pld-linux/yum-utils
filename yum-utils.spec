@@ -2,7 +2,7 @@ Summary:	A collection of utilities related to yum
 Summary(pl.UTF-8):	Zestaw narzędzi związanych z yumem
 Name:		yum-utils
 Version:	1.1.31
-Release:	2
+Release:	3
 License:	GPL
 Group:		Applications/System
 Source0:	http://yum.baseurl.org/download/yum-utils/%{name}-%{version}.tar.gz
@@ -518,10 +518,9 @@ packages (and if they need rebooting, or have updates, etc.)
 %package -n yum-plugin-puppetverify
 Summary:	Yum plugin to add puppet checksums to verify data
 Group:		Base
-Requires:	PyYAML >= 3.09
 Requires:	puppet
+Requires:	python-PyYAML >= 3.09
 Requires:	yum >= 3.2.12
-Provides:	yum-puppetverify = %{version}-%{release}
 
 %description -n yum-plugin-puppetverify
 Supplies checksums for files in packages from puppet's state file.
