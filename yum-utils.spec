@@ -2,7 +2,7 @@ Summary:	A collection of utilities related to yum
 Summary(pl.UTF-8):	Zestaw narzędzi związanych z yumem
 Name:		yum-utils
 Version:	1.1.31
-Release:	3
+Release:	4
 License:	GPL
 Group:		Applications/System
 Source0:	http://yum.baseurl.org/download/yum-utils/%{name}-%{version}.tar.gz
@@ -327,7 +327,6 @@ Summary(pl.UTF-8):	Wtyczka yuma włączająca filtry aliasów
 Group:		Base
 # Requires args_hook
 Requires:	yum >= 3.2.23
-Requires:	yum-utils-translations = %{version}-%{release}
 Obsoletes:	yum-aliases
 
 %description -n yum-plugin-aliases
