@@ -2,7 +2,7 @@ Summary:	A collection of utilities related to yum
 Summary(pl.UTF-8):	Zestaw narzędzi związanych z yumem
 Name:		yum-utils
 Version:	1.1.31
-Release:	5
+Release:	6
 License:	GPL
 Group:		Applications/System
 Source0:	http://yum.baseurl.org/download/yum-utils/%{name}-%{version}.tar.gz
@@ -660,12 +660,10 @@ fi
 %{_mandir}/man1/yum-aliases.1*
 %{_mandir}/man1/yum-builddep.1.*
 %{_mandir}/man1/yum-debug-dump.1*
-%{_mandir}/man1/yum-fs-snapshot.1*
 %{_mandir}/man1/yum-groups-manager.1*
 %{_mandir}/man1/yum-utils.1.*
 %{_mandir}/man1/yum-versionlock.1*
 %{_mandir}/man1/yumdownloader.1.*
-%{_mandir}/man5/yum-fs-snapshot.conf.5*
 %{_mandir}/man5/yum-versionlock.conf.5*
 %{_mandir}/man8/yum-complete-transaction.8.*
 %{_mandir}/man8/yumdb.8*
