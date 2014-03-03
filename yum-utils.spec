@@ -1,8 +1,12 @@
+#
+# Conditional build:
+%bcond_with	puppet		# puppet plugin
+
 Summary:	A collection of utilities related to yum
 Summary(pl.UTF-8):	Zestaw narzędzi związanych z yumem
 Name:		yum-utils
 Version:	1.1.31
-Release:	7
+Release:	8
 License:	GPL
 Group:		Applications/System
 Source0:	http://yum.baseurl.org/download/yum-utils/%{name}-%{version}.tar.gz
@@ -584,7 +588,7 @@ show-leaves
 local
 fs-snapshot
 ps
-puppetverify
+%{?with_puppet:puppetverify}
 "
 
 install -d $RPM_BUILD_ROOT{%{_sysconfdir}/yum/{pluginconf.d,post-actions},%{_libexecdir}}
@@ -849,10 +853,12 @@ fi
 %config(noreplace) %{_sysconfdir}/yum/pluginconf.d/ps.conf
 %{_libexecdir}/ps.*
 
+%if %{with puppet}
 %files -n yum-plugin-puppetverify
 %defattr(644,root,root,755)
 %config(noreplace) %{_sysconfdir}/yum/pluginconf.d/puppetverify.conf
 %{_libexecdir}/puppetverify.*
+%endif
 
 %files -n bash-completion-%{name}
 %defattr(644,root,root,755)
