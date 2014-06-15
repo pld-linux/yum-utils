@@ -6,13 +6,14 @@ Summary:	A collection of utilities related to yum
 Summary(pl.UTF-8):	Zestaw narzędzi związanych z yumem
 Name:		yum-utils
 Version:	1.1.31
-Release:	8
+Release:	9
 License:	GPL
 Group:		Applications/System
 Source0:	http://yum.baseurl.org/download/yum-utils/%{name}-%{version}.tar.gz
 # Source0-md5:	b2859b89321b98f2581243536e1b4993
 Source1:	yum-plugin-pld-kernel.py
 Source2:	yum-plugin-pld-kernel.conf
+Patch0:		rpm5.patch
 URL:		http://yum.baseurl.org/download/yum-utils/
 BuildRequires:	gettext-devel
 BuildRequires:	rpm-pythonprov
@@ -543,6 +544,7 @@ bashowe uzupełnianie nazw dla Yum Utils.
 
 %prep
 %setup -q
+%patch0 -p1
 
 mv plugins/README README.plugins
 
