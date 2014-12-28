@@ -15,7 +15,7 @@ Source1:	yum-plugin-pld-kernel.py
 Source2:	yum-plugin-pld-kernel.conf
 Patch0:		rpm5.patch
 URL:		http://yum.baseurl.org/download/yum-utils/
-BuildRequires:	gettext-devel
+BuildRequires:	gettext-tools
 BuildRequires:	rpm-pythonprov
 BuildRequires:	rpmbuild(macros) >= 1.228
 Requires:	python >= 1:2.5
