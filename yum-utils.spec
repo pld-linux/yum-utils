@@ -59,7 +59,7 @@ Group:		Base
 # changelog requires new update_md.UpdateMetadata() API in 3.2.23
 Requires:	python-dateutil
 Requires:	yum >= 3.2.23
-Obsoletes:	yum-changelog
+Obsoletes:	yum-changelog < 1.1.31
 
 %description -n yum-plugin-changelog
 This plugin adds a command line option to allow viewing package
@@ -74,7 +74,7 @@ Summary:	Yum plugin which chooses fastest repository from a mirrorlist
 Summary(pl.UTF-8):	Wtyczka yuma wybierająca najszybsze repozytorium z listy serwerów lustrzanych
 Group:		Base
 Requires:	yum >= 3.0
-Obsoletes:	yum-fastestmirror
+Obsoletes:	yum-fastestmirror < 1.1.31
 
 %description -n yum-plugin-fastestmirror
 This plugin sorts each repository's mirrorlist by connection speed
@@ -89,7 +89,7 @@ Summary:	Yum plugin to protect packages from certain repositories
 Summary(pl.UTF-8):	Wtyczka yuma zabezpieczająca pakiety z pewnych repozytoriów
 Group:		Base
 Requires:	yum >= 3.0
-Obsoletes:	yum-protectbase
+Obsoletes:	yum-protectbase < 1.1.31
 
 %description -n yum-plugin-protectbase
 This plugin allows certain repositories to be protected. Packages in
@@ -108,7 +108,7 @@ Summary:	Yum plugin to lock specified packages from being updated
 Summary(pl.UTF-8):	Wtyczka yuma blokująca uaktualnianie określonych pakietów
 Group:		Base
 Requires:	yum >= 3.2.24
-Obsoletes:	yum-versionlock
+Obsoletes:	yum-versionlock < 1.1.31
 
 %description -n yum-plugin-versionlock
 This plugin allows certain packages specified in a file to be
@@ -123,7 +123,7 @@ Summary:	Yum plugin to add tsflags by a commandline option
 Summary(pl.UTF-8):	Wtyczka yuma dodająca flagi transakcji opcją linii poleceń
 Group:		Base
 Requires:	yum >= 3.0
-Obsoletes:	yum-tsflags
+Obsoletes:	yum-tsflags < 1.1.31
 
 %description -n yum-plugin-tsflags
 This plugin allows you to specify optional transaction flags on the
@@ -153,7 +153,7 @@ Summary:	Yum plugin to add downloadonly command option
 Summary(pl.UTF-8):	Wtyczka yuma dodająca opcję linii poleceń downloadonly
 Group:		Base
 Requires:	yum >= 3.0
-Obsoletes:	yum-downloadonly
+Obsoletes:	yum-downloadonly < 1.1.31
 
 %description -n yum-plugin-downloadonly
 This plugin adds a --downloadonly flag to yum so that yum will only
@@ -183,7 +183,7 @@ Summary:	Yum plugin to handle PLD kernel installs
 Summary(pl.UTF-8):	Wtyczka yuma obsługująca instalację jąder PLD
 Group:		Base
 Requires:	yum >= 3.0
-Obsoletes:	yum-pld-kernel
+Obsoletes:	yum-pld-kernel < 1.1.31
 
 %description -n yum-plugin-pld-kernel
 This plugin handle installation of PLD kernels.
@@ -196,7 +196,7 @@ Summary:	Plugin to give priorities to packages from different repos
 Summary(pl.UTF-8):	Wtyczka nadająca priorytety pakietom z różnych repozytoriów
 Group:		Base
 Requires:	yum >= 3.0
-Obsoletes:	yum-priorities
+Obsoletes:	yum-priorities < 1.1.31
 
 %description -n yum-plugin-priorities
 This plugin allows repositories to have different priorities. Packages
@@ -216,7 +216,7 @@ Summary(pl.UTF-8):	Sprawdzanie uaktualnień przez yum-updatesd przy zakończeniu
 Group:		Base
 Requires:	yum >= 3.0
 Requires:	yum-updatesd
-Obsoletes:	yum-refresh-updatesd
+Obsoletes:	yum-refresh-updatesd < 1.1.31
 
 %description -n yum-plugin-refresh-updatesd
 yum-plugin-refresh-updatesd tells yum-updatesd to check for updates
@@ -235,7 +235,7 @@ Summary:	Yum plugin to merge configuration changes when installing packages
 Summary(pl.UTF-8):	Wtyczka yuma do włączania zmian konfiguracji przy instalacji pakietów
 Group:		Base
 Requires:	yum >= 3.0
-Obsoletes:	yum-merge-conf
+Obsoletes:	yum-merge-conf < 1.1.31
 
 %description -n yum-plugin-merge-conf
 This yum plugin adds the "--merge-conf" command line option. With this
@@ -252,7 +252,7 @@ Summary:	Yum plugin to enable security filters
 Summary(pl.UTF-8):	Wtyczka yuma włączająca filtry bezpieczeństwa
 Group:		Base
 Requires:	yum >= 3.2.18
-Obsoletes:	yum-security
+Obsoletes:	yum-security < 1.1.31
 
 %description -n yum-plugin-security
 This plugin adds the options --security, --cve, --bz and --advisory
@@ -314,7 +314,7 @@ Summary:	Yum plugin to help upgrades to the next distribution version
 Summary(pl.UTF-8):	Wtyczka yuma pomagająca przy uaktualnianiu do kolejnej wersji dystrybucji
 Group:		Base
 Requires:	yum >= 3.0
-Obsoletes:	yum-upgrade-helper
+Obsoletes:	yum-upgrade-helper < 1.1.31
 
 %description -n yum-plugin-upgrade-helper
 This plugin allows yum to erase specific packages on install/update
@@ -332,7 +332,7 @@ Summary(pl.UTF-8):	Wtyczka yuma włączająca filtry aliasów
 Group:		Base
 # Requires args_hook
 Requires:	yum >= 3.2.23
-Obsoletes:	yum-aliases
+Obsoletes:	yum-aliases < 1.1.31
 
 %description -n yum-plugin-aliases
 This plugin adds the command alias, and parses the aliases config.
@@ -347,7 +347,7 @@ Summary:	Yum plugin to list aggregate package data
 Summary(pl.UTF-8):	Wtyczka yuma wypisująca zagregowane dane pakietów
 Group:		Base
 Requires:	yum >= 3.0.5
-Obsoletes:	yum-list-data
+Obsoletes:	yum-list-data < 1.1.31
 
 %description -n yum-plugin-list-data
 This plugin adds the commands list- vendors, groups, packagers,
@@ -364,7 +364,7 @@ Summary:	Yum plugin to list filter based on package data
 Summary(pl.UTF-8):	Wtyczka yuma dodająca filtry oparte na danych pakietu
 Group:		Base
 Requires:	yum >= 3.2.17
-Obsoletes:	yum-filter-data
+Obsoletes:	yum-filter-data < 1.1.31
 
 %description -n yum-plugin-filter-data
 This plugin adds the options --filter- vendors, groups, packagers,
@@ -384,7 +384,7 @@ Summary(pl.UTF-8):	Wtyczka yuma dodająca repozytoria tymczasowe
 Group:		Base
 Requires:	createrepo
 Requires:	yum >= 3.2.11
-Obsoletes:	yum-tmprepo
+Obsoletes:	yum-tmprepo < 1.1.31
 
 %description -n yum-plugin-tmprepo
 This plugin adds the option --tmprepo which takes a URL to a .repo
@@ -403,7 +403,7 @@ Summary:	Yum plugin to add verify command, and options
 Summary(pl.UTF-8):	Wtyczka yuma dodająca polecenie i opcje weryfikacji
 Group:		Base
 Requires:	yum >= 3.2.12
-Obsoletes:	yum-verify
+Obsoletes:	yum-verify < 1.1.31
 
 %description -n yum-plugin-verify
 This plugin adds the commands verify, verify-all and verify-rpm. There
@@ -600,7 +600,7 @@ stanu puppeta.
 Summary:	bash-completion for Yum Utils
 Summary(pl.UTF-8):	bashowe uzupełnianie parametrów dla Yum Utils
 Group:		Applications/Shells
-Requires:	%{name}
+Requires:	%{name} = %{version}-%{release}
 Requires:	bash-completion
 
 %description -n bash-completion-%{name}
