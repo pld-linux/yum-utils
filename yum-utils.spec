@@ -464,8 +464,7 @@ This plugin reads the rpmdb files into the system cache before
 accessing the rpmdb directly. In some cases this should speed up
 access to rpmdb information
 
-# Works by searching for *-debuginfo ... so it shouldn't trigger on
-itself.
+# Works by searching for *-debuginfo ... so it shouldn't trigger on itself.
 %package -n yum-plugin-auto-update-debug-info
 Summary:	Yum plugin to enable automatic updates to installed debuginfo packages
 Group:		Base
@@ -546,16 +545,18 @@ bashowe uzupełnianie nazw dla Yum Utils.
 %setup -q
 %patch0 -p1
 
-mv plugins/README README.plugins
+%{__mv} plugins/README README.plugins
 
 %build
 %{__make}
 
 %install
 rm -rf $RPM_BUILD_ROOT
+
 %{__make} install \
 	PYLIBDIR=%{py_scriptdir} \
 	DESTDIR=$RPM_BUILD_ROOT
+
 %{__make} -C updateonboot install \
 	DESTDIR=$RPM_BUILD_ROOT
 
@@ -656,22 +657,22 @@ fi
 %dir %{py_sitescriptdir}/yumutils
 %{py_sitescriptdir}/yumutils/*.py[co]
 %{_mandir}/man1/debuginfo-install.1*
-%{_mandir}/man1/package-cleanup.1.*
-%{_mandir}/man1/repo-rss.1.*
+%{_mandir}/man1/package-cleanup.1*
+%{_mandir}/man1/repo-rss.1*
 %{_mandir}/man1/repodiff.1*
-%{_mandir}/man1/repoquery.1.*
-%{_mandir}/man1/reposync.1.*
+%{_mandir}/man1/repoquery.1*
+%{_mandir}/man1/reposync.1*
 %{_mandir}/man1/show-changed-rco.1*
 %{_mandir}/man1/show-installed.1*
 %{_mandir}/man1/yum-aliases.1*
-%{_mandir}/man1/yum-builddep.1.*
+%{_mandir}/man1/yum-builddep.1*
 %{_mandir}/man1/yum-debug-dump.1*
 %{_mandir}/man1/yum-groups-manager.1*
-%{_mandir}/man1/yum-utils.1.*
+%{_mandir}/man1/yum-utils.1*
 %{_mandir}/man1/yum-versionlock.1*
-%{_mandir}/man1/yumdownloader.1.*
+%{_mandir}/man1/yumdownloader.1*
 %{_mandir}/man5/yum-versionlock.conf.5*
-%{_mandir}/man8/yum-complete-transaction.8.*
+%{_mandir}/man8/yum-complete-transaction.8*
 %{_mandir}/man8/yumdb.8*
 
 %files -n yum-updateonboot
@@ -684,8 +685,8 @@ fi
 %defattr(644,root,root,755)
 %config(noreplace) %verify(not md5 mtime size) %{_sysconfdir}/yum/pluginconf.d/changelog.conf
 %{_libexecdir}/changelog.*
-%{_mandir}/man1/yum-changelog.1.*
-%{_mandir}/man5/yum-changelog.conf.5.*
+%{_mandir}/man1/yum-changelog.1*
+%{_mandir}/man5/yum-changelog.conf.5*
 
 %files -n yum-plugin-fastestmirror
 %defattr(644,root,root,755)
@@ -750,7 +751,7 @@ fi
 %defattr(644,root,root,755)
 %config(noreplace) %verify(not md5 mtime size) %{_sysconfdir}/yum/pluginconf.d/security.conf
 %{_libexecdir}/security.*
-%{_mandir}/man8/yum-security.8.*
+%{_mandir}/man8/yum-security.8*
 
 %if 0
 # TODO: renamed to protectbase?
@@ -781,13 +782,13 @@ fi
 %defattr(644,root,root,755)
 %config(noreplace) %verify(not md5 mtime size) %{_sysconfdir}/yum/pluginconf.d/list-data.conf
 %{_libexecdir}/list-data.*
-%{_mandir}/man1/yum-list-data.1.*
+%{_mandir}/man1/yum-list-data.1*
 
 %files -n yum-plugin-filter-data
 %defattr(644,root,root,755)
 %config(noreplace) %verify(not md5 mtime size) %{_sysconfdir}/yum/pluginconf.d/filter-data.conf
 %{_libexecdir}/filter-data.*
-%{_mandir}/man1/yum-filter-data.1.*
+%{_mandir}/man1/yum-filter-data.1*
 
 %files -n yum-plugin-tmprepo
 %defattr(644,root,root,755)
@@ -798,7 +799,7 @@ fi
 %defattr(644,root,root,755)
 %config(noreplace) %verify(not md5 mtime size) %{_sysconfdir}/yum/pluginconf.d/verify.conf
 %{_libexecdir}/verify.*
-%{_mandir}/man1/yum-verify.1.*
+%{_mandir}/man1/yum-verify.1*
 
 %files -n yum-plugin-keys
 %defattr(644,root,root,755)
@@ -847,8 +848,8 @@ fi
 %defattr(644,root,root,755)
 %config(noreplace) %{_sysconfdir}/yum/pluginconf.d/fs-snapshot.conf
 %{_libexecdir}/fs-snapshot.*
-%{_mandir}/man1/yum-fs-snapshot.1.*
-%{_mandir}/man5/yum-fs-snapshot.conf.5.*
+%{_mandir}/man1/yum-fs-snapshot.1*
+%{_mandir}/man5/yum-fs-snapshot.conf.5*
 
 %files -n yum-plugin-ps
 %defattr(644,root,root,755)
