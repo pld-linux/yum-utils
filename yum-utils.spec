@@ -416,6 +416,7 @@ kilka opcji. Działa podobnie jak rpm -V, weryfikując instalację.
 
 %package -n yum-plugin-keys
 Summary:	Yum plugin to deal with signing keys
+Summary(pl.UTF-8):	Wtyczka Yuma do obsługi kluczy podpisujących
 Group:		Base
 Requires:	yum >= 3.2.19
 
@@ -423,8 +424,14 @@ Requires:	yum >= 3.2.19
 This plugin adds the commands keys, keys-info, keys-data and
 keys-remove. They allow you to query and remove signing keys.
 
+%description -n yum-plugin-keys -l pl.UTF-8
+Ta wtyczka dodaje polecenia keys, keys-info, keys-data oraz
+keys-remove. Pozwalają one na zapytania i usuwanie kluczy
+podpisujących.
+
 %package -n yum-plugin-remove-with-leaves
 Summary:	Yum plugin to remove dependencies which are no longer used because of a removal
+Summary(pl.UTF-8):	Wtyczka Yuma do usuwania zależności już nie wymaganych po usunięciu innych
 Group:		Base
 Requires:	yum >= 3.2.19
 
@@ -433,8 +440,15 @@ This plugin removes any unused dependencies that were brought in by an
 install but would not normally be removed. It helps to keep a system
 clean of unused libraries and packages.
 
+%description -n yum-plugin-remove-with-leaves -l pl.UTF-8
+Ta wtyczka usuwa wszystkie nie używane zależności, które zostały
+pociągnięte przy instalacji, ale normanie nie zostałyby usunięte.
+Pozwala utrzymywać system w czystości, jeśli chodzi o nie używane
+biblioteki i pakiety.
+
 %package -n yum-plugin-post-transaction-actions
 Summary:	Yum plugin to run arbitrary commands when certain pkgs are acted on
+Summary(pl.UTF-8):	Wtyczka Yuma do uruchamiania dowolnych poleceń przy ruszaniu określonych pakietów
 Group:		Base
 Requires:	yum >= 3.2.19
 
@@ -442,8 +456,13 @@ Requires:	yum >= 3.2.19
 This plugin allows the user to run arbitrary actions immediately
 following a transaction when specified packages are changed.
 
+%description -n yum-plugin-post-transaction-actions -l pl.UTF-8
+Ta wtyczka pozwala użytkownikowi uruchomić dowolne akcje bezpośrednio
+po transakcji dotykającej podanych pakietów.
+
 %package -n yum-NetworkManager-dispatcher
 Summary:	NetworkManager script which tells yum to check it's cache on network change
+Summary(pl.UTF-8):	Skrypt NetworkManagera powiadamiający Yuma, aby sprawdził pamięć podręczną przy zmianie sieci
 Group:		Base
 Requires:	yum >= 3.2.17
 
@@ -454,19 +473,33 @@ currently there is no checking of previous data, so if your WiFi keeps
 going up and down (or you suspend/resume a lot) yum will recheck its
 cached data a lot.
 
+%description -n yum-NetworkManager-dispatcher -l pl.UTF-8
+Ten "skrypt ekspediujący" NetworkManagera zmusza yuma do sprawdzania
+pamięci podręcznej, kiedy w NetworkManagerze pojawia się połączenie
+sieciowe. Uwaga: nie ma sprawdzania poprzednich danych, więc jeśli
+sieć WiFi ciągle pojawia się i znika (lub dużo usypiamy i wybudzamy
+komputer), yum bardzo często będzie sprawdzał swoje cache.
+
 %package -n yum-plugin-rpm-warm-cache
 Summary:	Yum plugin to access the rpmdb files early to warm up access to the db
+Summary(pl.UTF-8):	Wtyczka Yuma do wczesnego dostępu do plików rpmdb w celu załadowania do cache
 Group:		Base
 Requires:	yum >= 3.2.19
 
 %description -n yum-plugin-rpm-warm-cache
 This plugin reads the rpmdb files into the system cache before
 accessing the rpmdb directly. In some cases this should speed up
-access to rpmdb information
+access to rpmdb information.
+
+%description -n yum-plugin-rpm-warm-cache -l pl.UTF-8
+Ta wtyczka wczytuje pliki rpmdb do systemowej pamięci podręcznej przed
+bezpośrednim dostępem do bazy. W niektórych przypadkach powinno to
+przyspieszyć dostęp do informacji w bazie RPM-a.
 
 # Works by searching for *-debuginfo ... so it shouldn't trigger on itself.
 %package -n yum-plugin-auto-update-debug-info
 Summary:	Yum plugin to enable automatic updates to installed debuginfo packages
+Summary(pl.UTF-8):	Wtyczka Yuma włączająca automatyczne uaktualnianie zainstalowanych pakietów debuginfo
 Group:		Base
 Requires:	yum >= 3.2.19
 
@@ -475,17 +508,28 @@ This plugin looks to see if any debuginfo packages are installed, and
 if there are it enables all debuginfo repositories that are "children"
 of enabled repositories.
 
+%description -n yum-plugin-auto-update-debug-info -l pl.UTF-8
+Ta wtyczka sprawdza, czy zainstalowane są jakiekolwiek pakiety
+debuginfo, a jeśli tak, włącza wszystkie repozytoria, będące "dziećmi"
+włączonych repozytoriów.
+
 %package -n yum-plugin-show-leaves
 Summary:	Yum plugin which shows newly installed leaf packages
+Summary(pl.UTF-8):	Wtyczka Yuma pokazująca nowo zainstasowane pakiety-liście
 Group:		Base
 Requires:	yum >= 3.2.23
 
 %description -n yum-plugin-show-leaves
 Yum plugin which shows newly installed leaf packages and packages that
-became leaves after a transaction
+became leaves after a transaction.
+
+%description -n yum-plugin-show-leaves -l pl.UTF-8
+Wtyczka Yuma pokazująca nowo zainstalowane pakiety-liście oraz
+pakiety, które staną się liśćmi po transakcji.
 
 %package -n yum-plugin-local
 Summary:	Yum plugin to automatically manage a local repo. of downloaded packages
+Summary(pl.UTF-8):	Wtyczka Yuma do automatycznego zarządzania lokalnym repozytorium pobranych pakietów
 Group:		Base
 # Who the hell knows what version:)
 Requires:	createrepo
@@ -498,8 +542,16 @@ downloaded packages to a repository on the local filesystem, and
 will always exist, even if the original repo. removes it (and can
 thus. be reinstalled/downgraded/etc.).
 
+%description -n yum-plugin-local -l pl.UTF-8
+Kiedy ta wtyczka jest zainstalowana, automatycznie kopiuje wszystkie
+pobrane pakiety do repozytorium w lokalnym systemie plików oraz
+przebudowuje to repozytorium. Oznacza to, że wszystkie pobrane pakiety
+będą zawsze istnieć, nawet jeśli zostaną usunięte z oryginalnego
+repozytorium (można je więc zainstalować ponownie/cofnąć/itp.).
+
 %package -n yum-plugin-fs-snapshot
 Summary:	Yum plugin to automatically snapshot your filesystems during updates
+Summary(pl.UTF-8):	Wtyczka Yuma do automatycznego wykonywania migawki systemów plików w trakcie aktualizacji
 Group:		Base
 Requires:	yum >= 3.2.22
 
@@ -508,8 +560,14 @@ When this plugin is installed it will automatically snapshot any
 filesystem that is touched by the packages in a yum update or yum
 remove.
 
+%description -n yum-plugin-fs-snapshot -l pl.UTF-8
+Kiedy ta wtyczka jest zainstalowana, automatycznie wykonuje migawkę
+dowolnego systemu plików, którego dotyczy aktualizacja lub usuwanie
+pakietów yumem.
+
 %package -n yum-plugin-ps
 Summary:	Yum plugin to look at processes, with respect to packages
+Summary(pl.UTF-8):	Wtyczka Yuma do wyszukiwania procesów z uwzględnieniem pakietów
 Group:		Base
 Requires:	yum >= 3.2.27
 
@@ -518,8 +576,14 @@ When this plugin is installed it adds the yum command "ps", which
 allows you to see which running processes are accociated with which
 packages (and if they need rebooting, or have updates, etc.)
 
+%description -n yum-plugin-ps -l pl.UTF-8
+Kiedy ta wtyczka jest zainstalowana, dodaje polecenie yuma "ps",
+pozwalające na sprawdzenie, które uruchomione procesy są powiązane z
+którymi pakietami (i czy wymagają rebootu, mają uaktualnienia itp.).
+
 %package -n yum-plugin-puppetverify
 Summary:	Yum plugin to add puppet checksums to verify data
+Summary(pl.UTF-8):	Wtyczka Yuma do dodawania sum kontrolnych puppeta do danych weryfikacyjnych
 Group:		Base
 Requires:	puppet
 Requires:	python-PyYAML >= 3.09
@@ -528,9 +592,13 @@ Requires:	yum >= 3.2.12
 %description -n yum-plugin-puppetverify
 Supplies checksums for files in packages from puppet's state file.
 
+%description -n yum-plugin-puppetverify -l pl.UTF-8
+Wtyczka dostarczająca sumy kontrolne dla plików w pakietach z pliku
+stanu puppeta.
+
 %package -n bash-completion-%{name}
 Summary:	bash-completion for Yum Utils
-Summary(pl.UTF-8):	bashowe uzupełnianie nazw dla Yum Utils
+Summary(pl.UTF-8):	bashowe uzupełnianie parametrów dla Yum Utils
 Group:		Applications/Shells
 Requires:	%{name}
 Requires:	bash-completion
@@ -539,7 +607,7 @@ Requires:	bash-completion
 bash-completion for Yum Utils.
 
 %description -n bash-completion-%{name} -l pl.UTF-8
-bashowe uzupełnianie nazw dla Yum Utils.
+bashowe uzupełnianie parametrów dla Yum Utils.
 
 %prep
 %setup -q
